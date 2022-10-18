@@ -3,16 +3,6 @@
 
 The repo contains modules that connect OpenG2P with MOSIP Token Seeder(MTS) to seed MOSIP Tokens of the registrants
 
-<!-- prettier-ignore-start -->
-
-[//]: # (addons)
-
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
-
-[//]: # (end addons)
-
-<!-- prettier-ignore-end -->
-
 ## Licenses
 
 This repository is licensed under [MPL-2.0](LICENSE).
