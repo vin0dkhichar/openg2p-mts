@@ -171,7 +171,7 @@ class MTSConnector(models.Model):
 
     def mts_onetime_action(self, _id: int):
         _logger.info("Being called everytime. Id: " + str(_id))
-        current_conf = self.env["mts.connector"].browse(_id)
+        current_conf: MTSConnector = self.env["mts.connector"].browse(_id)
         # execute here
         dt_now = datetime.utcnow()
         mts_request = {
@@ -187,9 +187,21 @@ class MTSConnector(models.Model):
                 "outputFormat": current_conf.output_format,
             },
         }
-        if current_conf.input_type == "custom":
-            current_conf.custom_single_action()
-            return
+        if current_conf.delivery_type == "callback":
+            mts_request["request"]["callbackProperties"] = {
+                "url": current_conf.callback_url,
+                "httpMethod": current_conf.callback_httpmethod,
+                "timeoutSeconds": current_conf.callback_timeout,
+                "callInBulk": False,
+                "authType": current_conf.callback_authtype,
+            }
+            if current_conf.callback_authtype == "odoo":
+                mts_request["request"]["callbackProperties"]["authOdoo"] = {
+                    "database": current_conf.callback_auth_database,
+                    "authUrl": current_conf.callback_auth_url,
+                    "username": current_conf.callback_auth_username,
+                    "password": current_conf.callback_auth_password,
+                }
         if current_conf.input_type == "odk":
             mts_request["request"]["odkconfig"] = {
                 "baseurl": current_conf.odk_base_url,
@@ -201,18 +213,9 @@ class MTSConnector(models.Model):
                 "startdate": self.datetime_to_iso(current_conf.end_datetime),
                 "enddate": self.datetime_to_iso(dt_now),
             }
-        if current_conf.delivery_type == "callback":
-            mts_request["request"]["callbackProperties"] = {
-                "url": current_conf.callback_url,
-                "httpMethod": current_conf.callback_httpmethod,
-                "timeoutSeconds": current_conf.callback_timeout,
-                "callInBulk": False,
-                "authType": current_conf.callback_authtype,
-                "database": current_conf.callback_auth_database,
-                "odooAuthUrl": current_conf.callback_auth_url,
-                "username": current_conf.callback_auth_username,
-                "password": current_conf.callback_auth_password,
-            }
+        if current_conf.input_type == "custom":
+            current_conf.custom_single_action(mts_request)
+            return
         _logger.info("Request to MTS %s", json.dumps(mts_request))
         mts_res = requests.post(
             "%s/authtoken/%s" % (current_conf.mts_url, current_conf.input_type),
@@ -225,7 +228,7 @@ class MTSConnector(models.Model):
         if current_conf.is_recurring == "onetime":
             current_conf.job_status = "completed"
 
-    def custom_single_action(self):
+    def custom_single_action(self, mts_request):
         # to be overloaded by other modules.
         _logger.info("Custom Single Action Called")
 

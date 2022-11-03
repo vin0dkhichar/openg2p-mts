@@ -1,6 +1,6 @@
 import json
 import logging
-from datetime import date, datetime
+from datetime import date
 
 import requests
 
@@ -60,7 +60,7 @@ class G2PMTSConnector(models.Model):
                         _("'List of fields to be used' is not valid json.")
                     ) from ve
 
-    def custom_single_action(self):
+    def custom_single_action(self, mts_request):
         _logger.info("Custom Input action called.")
 
         config = self.env["ir.config_parameter"].sudo()
@@ -82,34 +82,7 @@ class G2PMTSConnector(models.Model):
                 json.dumps(record_list, default=self.record_set_json_serialize)
             )
             _logger.info("The recordset for debug %s", json.dumps(record_list))
-            dt_utc = datetime.utcnow()
-            mts_request = {
-                "id": "string",
-                "version": "string",
-                "metadata": "string",
-                "requesttime": dt_utc.strftime("%Y-%m-%dT%H:%M:%S")
-                + dt_utc.strftime(".%f")[0:4]
-                + "Z",
-                "request": {
-                    "output": self.output_type,
-                    "deliverytype": self.delivery_type,
-                    "mapping": json.loads(self.mapping),
-                    "lang": self.lang_code,
-                    "outputFormat": self.output_format,
-                    "callbackProperties": {
-                        "url": self.callback_url,
-                        "httpMethod": self.callback_httpmethod,
-                        "timeoutSeconds": self.callback_timeout,
-                        "callInBulk": False,
-                        "authType": self.callback_authtype,
-                        "database": self.callback_auth_database,
-                        "odooAuthUrl": self.callback_auth_url,
-                        "username": self.callback_auth_username,
-                        "password": self.callback_auth_password,
-                    },
-                    "authdata": record_list,
-                },
-            }
+            mts_request["request"]["authdata"] = record_list
             mts_res = requests.post(
                 "%s/authtoken/%s" % (self.mts_url, "json"), json=mts_request
             )
