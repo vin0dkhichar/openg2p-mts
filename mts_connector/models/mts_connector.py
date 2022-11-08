@@ -2,6 +2,7 @@ import json
 import logging
 from datetime import datetime, timedelta
 
+import pyjq
 import requests
 
 from odoo import _, api, fields, models
@@ -81,7 +82,7 @@ class MTSConnector(models.Model):
     # callback configurations
     callback_url = fields.Char(string="Callback URL", required=False)
     callback_httpmethod = fields.Selection(
-        [("POST", "POST"), ("PUT", "PUT"), ("GET", "GET")],
+        [("POST", "POST"), ("PUT", "PUT"), ("GET", "GET"), ("PATCH", "PATCH")],
         string="Callback HTTP Method",
         required=False,
     )
@@ -124,9 +125,11 @@ class MTSConnector(models.Model):
                     raise ValidationError(_("Mapping is not valid json.")) from ve
             if rec.output_format:
                 try:
-                    json.loads(rec.output_format)
+                    pyjq.compile(rec.output_format)
                 except ValueError as ve:
-                    raise ValidationError(_("Output Format is not valid json.")) from ve
+                    raise ValidationError(
+                        _("Output Format is not valid jq expression.")
+                    ) from ve
 
     def mts_action_trigger(self):
         for rec in self:

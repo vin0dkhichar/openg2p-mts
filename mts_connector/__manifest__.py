@@ -7,6 +7,7 @@
     "website": "https://github.com/OpenG2P/openg2p-mts",
     "license": "Other OSI approved licence",
     "depends": ["base", "queue_job"],
+    "external_dependencies": {"python": ["pyjq"]},
     "data": [
         "security/ir.model.access.csv",
         "security/security.xml",
