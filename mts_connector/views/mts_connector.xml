@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_mts_conf_action" model="ir.actions.server">
+        <field name="name">MTS Config Start</field>
+        <field name="model_id" ref="model_mts_connector" />
+        <field name="state">code</field>
+        <field name="code">
+            record.mts_action_trigger()
+        </field>
+    </record>
+
+    <record id="view_mts_connectors_tree" model="ir.ui.view">
+        <field name="name">view_mts_connectors_tree</field>
+        <field name="model">mts.connector</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="conf_name" />
+                <field name="is_recurring" />
+                <field name="job_status" />
+                <button
+                    type="action"
+                    name="%(action_mts_conf_action)d"
+                    attrs="{'invisible':[('job_status','!=','draft')]}"
+                    string="Start"
+                />
+                <button
+                    type="action"
+                    name="%(action_mts_conf_action)d"
+                    attrs="{'invisible':[('job_status','!=','started'),('job_status','!=','running')]}"
+                    string="Stop"
+                />
+                <button
+                    type="action"
+                    name="%(action_mts_conf_action)d"
+                    attrs="{'invisible':[('job_status','!=','completed')]}"
+                    string="Restart"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_mts_connectors_form" model="ir.ui.view">
+        <field name="name">view_mts_connectors_form</field>
+        <field name="model">mts.connector</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            type="action"
+                            name="%(action_mts_conf_action)d"
+                            icon="fa-play"
+                            attrs="{'invisible':[('job_status','!=','draft')]}"
+                        >
+                            <span class="o_stat_text">Start</span>
+                        </button>
+                        <button
+                            type="action"
+                            name="%(action_mts_conf_action)d"
+                            icon="fa-stop"
+                            attrs="{'invisible':[('job_status','!=','started'),('job_status','!=','running')]}"
+                        >
+                            <span class="o_stat_text">Stop</span>
+                        </button>
+                        <button
+                            type="action"
+                            name="%(action_mts_conf_action)d"
+                            icon="fa-repeat"
+                            attrs="{'invisible':[('job_status','!=','completed')]}"
+                        >
+                            <span class="o_stat_text">Restart</span>
+                        </button>
+                    </div>
+                    <group string="Base Configuration" id="mts_connector_form_base_conf">
+                        <field name="conf_name" />
+                        <field name="mts_url" />
+                        <field name="input_type" />
+                        <field name="mapping" />
+                        <field name="output_type" />
+                        <field name="output_format" />
+                        <field name="delivery_type" />
+                        <field name="is_recurring" />
+                        <field name="lang_code" />
+                        <field name="job_status" invisible="True" />
+                    </group>
+                    <group
+                        string="Recurring Job Configuration"
+                        attrs="{'invisible':[('is_recurring','!=','recurring')]}"
+                    >
+                        <field
+                            name="interval_minutes"
+                            attrs="{'required':[('is_recurring','==','recurring')]}"
+                        />
+                    </group>
+                    <group
+                        string="One Time Job Configuration"
+                        attrs="{'invisible':[('is_recurring','!=','onetime')]}"
+                    >
+                        <field name="start_datetime" attrs="{'required':[('is_recurring','==','onetime')]}" />
+                        <field name="end_datetime" attrs="{'required':[('is_recurring','==','onetime')]}" />
+                    </group>
+                    <group string="ODK Input Configuration" attrs="{'invisible':[('input_type','!=','odk')]}">
+                        <field name="odk_base_url" attrs="{'required':[('input_type','==','odk')]}" />
+                        <field name="odk_odata_url" attrs="{'required':[('input_type','==','odk')]}" />
+                        <field name="odk_email" attrs="{'required':[('input_type','==','odk')]}" />
+                        <field
+                            name="odk_password"
+                            password="True"
+                            attrs="{'required':[('input_type','==','odk')]}"
+                        />
+                    </group>
+                    <group
+                        string="Callback Configuration"
+                        attrs="{'invisible':[('delivery_type','!=','callback')]}"
+                    >
+                        <field name="callback_url" attrs="{'required':[('delivery_type','==','callback')]}" />
+                        <field
+                            name="callback_httpmethod"
+                            attrs="{'required':[('delivery_type','==','callback')]}"
+                        />
+                        <field
+                            name="callback_timeout"
+                            attrs="{'required':[('delivery_type','==','callback')]}"
+                        />
+                        <field
+                            name="callback_authtype"
+                            attrs="{'required':[('delivery_type','==','callback')]}"
+                        />
+                    </group>
+                    <group
+                        string="Callback Odoo Auth Configuration"
+                        attrs="{'invisible':[('callback_authtype','!=','odoo')]}"
+                    >
+                        <field
+                            name="callback_auth_url"
+                            attrs="{'required':[('callback_authtype','==','odoo')]}"
+                        />
+                        <field
+                            name="callback_auth_database"
+                            attrs="{'required':[('callback_authtype','==','odoo')]}"
+                        />
+                        <field
+                            name="callback_auth_username"
+                            attrs="{'required':[('callback_authtype','==','odoo')]}"
+                        />
+                        <field
+                            name="callback_auth_password"
+                            password="True"
+                            attrs="{'required':[('callback_authtype','==','odoo')]}"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mts_connector" model="ir.actions.act_window">
+        <field name="name">MTS Connector</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mts.connector</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent">
+                Configure Mosip Token Seeder Importers.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="mts_importer_connector"
+        name="Connector"
+        parent="mts_importer_root"
+        action="action_mts_connector"
+        sequence="10"
+    />
+</odoo>
