@@ -1,10 +1,11 @@
 {
     "name": "OpenG2P Registry MTS Connector",
     "category": "MTS",
-    "version": "15.0.0.0.1",
+    "version": "15.0.1.1.0",
     "author": "OpenG2P",
     "website": "https://github.com/OpenG2P/openg2p-mts",
     "license": "Other OSI approved licence",
+    "development_status": "Alpha", 
     "depends": ["mts_connector", "g2p_registry_individual", "g2p_registry_rest_api"],
     "data": [
         "data/cron.xml",
