@@ -15,7 +15,7 @@
         <field name="priority">1</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="conf_name" />
+                <field name="name" />
                 <field name="is_recurring" />
                 <field name="job_status" />
                 <button
@@ -74,7 +74,7 @@
                         </button>
                     </div>
                     <group string="Base Configuration" id="mts_connector_form_base_conf">
-                        <field name="conf_name" />
+                        <field name="name" />
                         <field name="mts_url" />
                         <field name="input_type" />
                         <field name="mapping" />
