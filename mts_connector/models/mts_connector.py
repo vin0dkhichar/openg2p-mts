@@ -223,6 +223,7 @@ class MTSConnector(models.Model):
         mts_res = requests.post(
             "%s/authtoken/%s" % (current_conf.mts_url, current_conf.input_type),
             json=mts_request,
+            timeout=current_conf.callback_timeout,
         )
         _logger.info("Output of MTS %s", mts_res.text)
         current_conf.update(

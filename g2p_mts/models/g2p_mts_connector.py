@@ -72,7 +72,9 @@ class G2PMTSConnector(models.Model):
 
         record_set = self.env["res.partner"].search(search_domain, limit=100)
         if len(record_set) > 0:
-            record_list = record_set.read(selected_fields)
+            record_list = self.read_record_list_from_rec_set(
+                record_set, selected_fields
+            )
             for i, rec in enumerate(record_set):
                 for reg_id in rec.reg_ids:
                     if reg_id.id_type.id == vid_id_type:
@@ -84,7 +86,9 @@ class G2PMTSConnector(models.Model):
             _logger.info("The recordset for debug %s", json.dumps(record_list))
             mts_request["request"]["authdata"] = record_list
             mts_res = requests.post(
-                "%s/authtoken/%s" % (self.mts_url, "json"), json=mts_request
+                "%s/authtoken/%s" % (self.mts_url, "json"),
+                json=mts_request,
+                timeout=self.callback_timeout,
             )
             _logger.info("Output of MTS %s", mts_res.text)
         if self.is_recurring == "onetime":
@@ -112,5 +116,17 @@ class G2PMTSConnector(models.Model):
                     uin_token_reg_id = reg_id
                 if vid_reg_id and uin_token_reg_id:
                     break
-            if uin_token_reg_id.status == "processed" and uin_token_reg_id.value:
+            if uin_token_reg_id.value:
                 vid_reg_id.unlink()
+
+    def read_record_list_from_rec_set(self, record_set, field_list):
+        res = []
+        for rec in record_set:
+            rec_dict = {}
+            for field in field_list:
+                # TODO: What about boolean fields which have value false.
+                if field in rec._fields and rec[field]:
+                    rec_dict[field] = rec[field]
+            if rec_dict:
+                res.append(rec_dict)
+        return res
