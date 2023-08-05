@@ -1,15 +1,13 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
 [![Pre-commit Status](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml/badge.svg?branch=15.0-1.1.0)](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml?query=branch%3A15.0-1.1.0)
-[![Build Status](https://github.com/OpenG2P/openg2p-mts/actions/workflows/test.yml/badge.svg?branch=15.0-1.1.0)](https://github.com/OpenG2P/openg2p-mts/actions/workflows/test.yml?query=branch%3A15.0-1.1.0)
-[![codecov](https://codecov.io/gh/OpenG2P/openg2p-mts/branch/15.0-1.1.0/graph/badge.svg)](https://codecov.io/gh/OpenG2P/openg2p-mts)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
 
 # OpenG2P Registry MTS Connector
 
-The repo contains modules that connect OpenG2P with MOSIP Token Seeder(MTS) to seed MOSIP Tokens of the registrants. Refer to the documentation [here](https://docs.openg2p.org/integrations/integration-with-mosip/mts-connector).
+The repo contains modules that connect OpenG2P with MOSIP Token Seeder(MTS) to seed MOSIP Tokens of the registrants. Refer to [OpenG2P Docs](https://docs.openg2p.org/v/1.1).
 
 <!-- /!\ do not modify below this line -->
 
