@@ -15,7 +15,7 @@ class MTSConnector(models.Model):
     _name = "mts.connector"
     _description = "Mosip Token Seeder Connectors"
 
-    conf_name = fields.Char(string="Name", required=True)
+    name = fields.Char(required=True)
     # only odk input, json output, and callback deliverytype supported as of now
     mts_url = fields.Char(
         string="URL to reach MTS",
@@ -140,7 +140,7 @@ class MTSConnector(models.Model):
                     ir_cron = self.env["ir.cron"].sudo()
                     rec.cron_id = ir_cron.create(
                         {
-                            "name": "MTS Cron " + rec.conf_name + " #" + str(rec.id),
+                            "name": "MTS Cron " + rec.name + " #" + str(rec.id),
                             "active": True,
                             "interval_number": rec.interval_minutes,
                             "interval_type": "minutes",
@@ -223,6 +223,7 @@ class MTSConnector(models.Model):
         mts_res = requests.post(
             "%s/authtoken/%s" % (current_conf.mts_url, current_conf.input_type),
             json=mts_request,
+            timeout=current_conf.callback_timeout,
         )
         _logger.info("Output of MTS %s", mts_res.text)
         current_conf.update(

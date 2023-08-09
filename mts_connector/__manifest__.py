@@ -4,9 +4,9 @@
     "version": "15.0.1.1.0",
     "sequence": 1,
     "author": "OpenG2P",
-    "website": "https://github.com/OpenG2P/openg2p-mts",
+    "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Alpha",
+    "development_status": "Production/Stable",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["pyjq"]},
     "data": [

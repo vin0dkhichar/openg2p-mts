@@ -211,11 +211,6 @@ msgid "Mosip Token Seeder Connectors"
 msgstr ""
 
 #. module: mts_connector
-#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__conf_name
-msgid "Name"
-msgstr ""
-
-#. module: mts_connector
 #: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__input_type__odk
 msgid "ODK"
 msgstr ""

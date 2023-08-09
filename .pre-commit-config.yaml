@@ -33,7 +33,7 @@ repos:
       # update the NOT INSTALLABLE ADDONS section above
       - id: oca-update-pre-commit-excluded-addons
       - id: oca-fix-manifest-website
-        args: ["https://github.com/OpenG2P/openg2p-mts"]
+        args: ["https://openg2p.org"]
   - repo: https://github.com/myint/autoflake
     rev: v1.4
     hooks:
@@ -96,7 +96,7 @@ repos:
       - id: pyupgrade
         args: ["--keep-percent-format"]
   - repo: https://github.com/PyCQA/isort
-    rev: 5.9.3
+    rev: 5.12.0
     hooks:
       - id: isort
         name: isort except __init__.py
