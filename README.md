@@ -1,6 +1,6 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml/badge.svg?branch=15.0-1.1.0)](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml?query=branch%3A15.0-1.1.0)
+[![Pre-commit Status](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml/badge.svg?branch=15.0-develop)](https://github.com/OpenG2P/openg2p-mts/actions/workflows/pre-commit.yml?query=branch%3A15.0-develop)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
@@ -19,8 +19,8 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[g2p_mts](g2p_mts/) | 15.0.0.0.1 |  | OpenG2P Registry MTS Connector
-[mts_connector](mts_connector/) | 15.0.0.0.1 |  | MTS Connector
+[g2p_mts](g2p_mts/) | 15.0.1.2.0 |  | OpenG2P Registry MTS Connector
+[mts_connector](mts_connector/) | 15.0.1.2.0 |  | MTS Connector
 
 [//]: # (end addons)
 

@@ -1,12 +1,12 @@
 {
     "name": "MTS Connector",
     "category": "MTS",
-    "version": "15.0.1.1.0",
+    "version": "15.0.1.2.0",
     "sequence": 1,
     "author": "OpenG2P",
     "website": "https://openg2p.org",
     "license": "Other OSI approved licence",
-    "development_status": "Production/Stable",
+    "development_status": "Alpha",
     "depends": ["base", "queue_job"],
     "external_dependencies": {"python": ["pyjq"]},
     "data": [
