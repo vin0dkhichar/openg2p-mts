@@ -21,20 +21,23 @@
                 <button
                     type="action"
                     name="%(action_mts_conf_action)d"
-                    attrs="{'invisible':[('job_status','!=','draft')]}"
+                    invisible="job_status != 'draft'"
                     string="Start"
+                    title="Action mts conf action"
                 />
                 <button
                     type="action"
                     name="%(action_mts_conf_action)d"
-                    attrs="{'invisible':[('job_status','!=','started'),('job_status','!=','running')]}"
+                    invisible="job_status not in ('started','running')"
                     string="Stop"
+                    title="Action mts conf action"
                 />
                 <button
                     type="action"
                     name="%(action_mts_conf_action)d"
-                    attrs="{'invisible':[('job_status','!=','completed')]}"
+                    invisible="job_status != 'completed'"
                     string="Restart"
+                    title="Action mts conf action"
                 />
             </tree>
         </field>
@@ -52,7 +55,8 @@
                             type="action"
                             name="%(action_mts_conf_action)d"
                             icon="fa-play"
-                            attrs="{'invisible':[('job_status','!=','draft')]}"
+                            invisible="job_status != 'draft'"
+                            title="Action mts conf action"
                         >
                             <span class="o_stat_text">Start</span>
                         </button>
@@ -60,7 +64,8 @@
                             type="action"
                             name="%(action_mts_conf_action)d"
                             icon="fa-stop"
-                            attrs="{'invisible':[('job_status','!=','started'),('job_status','!=','running')]}"
+                            invisible="job_status not in ('started', 'running')"
+                            title="Action mts conf action"
                         >
                             <span class="o_stat_text">Stop</span>
                         </button>
@@ -68,7 +73,8 @@
                             type="action"
                             name="%(action_mts_conf_action)d"
                             icon="fa-repeat"
-                            attrs="{'invisible':[('job_status','!=','completed')]}"
+                            invisible="job_status != 'completed'"
+                            title="Action mts conf action"
                         >
                             <span class="o_stat_text">Restart</span>
                         </button>
@@ -85,70 +91,33 @@
                         <field name="lang_code" />
                         <field name="job_status" invisible="True" />
                     </group>
-                    <group
-                        string="Recurring Job Configuration"
-                        attrs="{'invisible':[('is_recurring','!=','recurring')]}"
-                    >
-                        <field
-                            name="interval_minutes"
-                            attrs="{'required':[('is_recurring','==','recurring')]}"
-                        />
+                    <group string="Recurring Job Configuration" invisible="is_recurring != 'recurring'">
+                        <field name="interval_minutes" />
+                    </group>required = "is_recurring == 'recurring'"
+                    <group string="One Time Job Configuration" invisible="is_recurring != 'onetime'">
+                        <field name="start_datetime" required="is_recurring == 'onetime'" />
+                        <field name="end_datetime" required="is_recurring == 'onetime'" />
                     </group>
-                    <group
-                        string="One Time Job Configuration"
-                        attrs="{'invisible':[('is_recurring','!=','onetime')]}"
-                    >
-                        <field name="start_datetime" attrs="{'required':[('is_recurring','==','onetime')]}" />
-                        <field name="end_datetime" attrs="{'required':[('is_recurring','==','onetime')]}" />
+                    <group string="ODK Input Configuration" invisible="input_type != 'odk'">
+                        <field name="odk_base_url" required="input_type == 'odk'" />
+                        <field name="odk_odata_url" required="input_type == 'odk'" />
+                        <field name="odk_email" required="input_type == 'odk'" />
+                        <field name="odk_password" password="True" required="input_type == 'odk'" />
                     </group>
-                    <group string="ODK Input Configuration" attrs="{'invisible':[('input_type','!=','odk')]}">
-                        <field name="odk_base_url" attrs="{'required':[('input_type','==','odk')]}" />
-                        <field name="odk_odata_url" attrs="{'required':[('input_type','==','odk')]}" />
-                        <field name="odk_email" attrs="{'required':[('input_type','==','odk')]}" />
-                        <field
-                            name="odk_password"
-                            password="True"
-                            attrs="{'required':[('input_type','==','odk')]}"
-                        />
+                    <group string="Callback Configuration" invisible="delivery_type != 'callback'">
+                        <field name="callback_url" required="delivery_type == 'callback'" />
+                        <field name="callback_httpmethod" required="delivery_type == 'callback'" />
+                        <field name="callback_timeout" required="delivery_type == 'callback'" />
+                        <field name="callback_authtype" required="delivery_type == 'callback'" />
                     </group>
-                    <group
-                        string="Callback Configuration"
-                        attrs="{'invisible':[('delivery_type','!=','callback')]}"
-                    >
-                        <field name="callback_url" attrs="{'required':[('delivery_type','==','callback')]}" />
-                        <field
-                            name="callback_httpmethod"
-                            attrs="{'required':[('delivery_type','==','callback')]}"
-                        />
-                        <field
-                            name="callback_timeout"
-                            attrs="{'required':[('delivery_type','==','callback')]}"
-                        />
-                        <field
-                            name="callback_authtype"
-                            attrs="{'required':[('delivery_type','==','callback')]}"
-                        />
-                    </group>
-                    <group
-                        string="Callback Odoo Auth Configuration"
-                        attrs="{'invisible':[('callback_authtype','!=','odoo')]}"
-                    >
-                        <field
-                            name="callback_auth_url"
-                            attrs="{'required':[('callback_authtype','==','odoo')]}"
-                        />
-                        <field
-                            name="callback_auth_database"
-                            attrs="{'required':[('callback_authtype','==','odoo')]}"
-                        />
-                        <field
-                            name="callback_auth_username"
-                            attrs="{'required':[('callback_authtype','==','odoo')]}"
-                        />
+                    <group string="Callback Odoo Auth Configuration" invisible="callback_authtype != 'odoo'">
+                        <field name="callback_auth_url" invisible="callback_authtype == 'odoo'" />
+                        <field name="callback_auth_database" invisible="callback_authtype == 'odoo'" />
+                        <field name="callback_auth_username" invisible="callback_authtype == 'odoo'" />
                         <field
                             name="callback_auth_password"
                             password="True"
-                            attrs="{'required':[('callback_authtype','==','odoo')]}"
+                            invisible="callback_authtype == 'odoo'"
                         />
                     </group>
                 </sheet>
