@@ -37,13 +37,9 @@ class MTSConnector(models.Model):
             "fullAddress": ["fullAddress"]
             }""",
     )
-    output_type = fields.Selection(
-        [("json", "JSON")], string="MTS Output Type", required=True
-    )
+    output_type = fields.Selection([("json", "JSON")], string="MTS Output Type", required=True)
     output_format = fields.Text(string="MTS Output Format", required=False)
-    delivery_type = fields.Selection(
-        [("callback", "Callback")], string="MTS Delivery Type", required=True
-    )
+    delivery_type = fields.Selection([("callback", "Callback")], string="MTS Delivery Type", required=True)
     lang_code = fields.Char(string="Mosip Language", required=True, default="eng")
     job_status = fields.Selection(
         [
@@ -87,9 +83,7 @@ class MTSConnector(models.Model):
         required=False,
     )
     callback_timeout = fields.Integer(required=False, default=10)
-    callback_authtype = fields.Selection(
-        [("odoo", "Odoo")], string="Callback Auth Type", required=False
-    )
+    callback_authtype = fields.Selection([("odoo", "Odoo")], string="Callback Auth Type", required=False)
     callback_auth_url = fields.Char(required=False)
     callback_auth_database = fields.Char(required=False)
     callback_auth_username = fields.Char(required=False)
@@ -100,18 +94,14 @@ class MTSConnector(models.Model):
         for rec in self:
             if rec.start_datetime:
                 if rec.start_datetime > datetime.now():
-                    raise ValidationError(
-                        _("Start Time cannot be after the current time.")
-                    )
+                    raise ValidationError(_("Start Time cannot be after the current time."))
 
     @api.constrains("end_datetime")
     def constraint_end_date(self):
         for rec in self:
             if rec.end_datetime:
                 if rec.end_datetime > datetime.now():
-                    raise ValidationError(
-                        _("End Time cannot be after the current time.")
-                    )
+                    raise ValidationError(_("End Time cannot be after the current time."))
                 if rec.end_datetime < rec.start_datetime:
                     raise ValidationError(_("End Time cannot be after Start Time."))
 
@@ -127,9 +117,7 @@ class MTSConnector(models.Model):
                 try:
                     pyjq.compile(rec.output_format)
                 except ValueError as ve:
-                    raise ValidationError(
-                        _("Output Format is not valid jq expression.")
-                    ) from ve
+                    raise ValidationError(_("Output Format is not valid jq expression.")) from ve
 
     def mts_action_trigger(self):
         for rec in self:
@@ -144,9 +132,7 @@ class MTSConnector(models.Model):
                             "active": True,
                             "interval_number": rec.interval_minutes,
                             "interval_type": "minutes",
-                            "model_id": self.env["ir.model"]
-                            .search([("model", "=", "mts.connector")])
-                            .id,
+                            "model_id": self.env["ir.model"].search([("model", "=", "mts.connector")]).id,
                             "state": "code",
                             "code": "model.mts_onetime_action(" + str(rec.id) + ")",
                             "doall": False,
@@ -157,8 +143,7 @@ class MTSConnector(models.Model):
                     now_datetime = datetime.now()
                     rec.update(
                         {
-                            "start_datetime": now_datetime
-                            - timedelta(minutes=rec.interval_minutes),
+                            "start_datetime": now_datetime - timedelta(minutes=rec.interval_minutes),
                             "end_datetime": now_datetime,
                         }
                     )
@@ -226,9 +211,7 @@ class MTSConnector(models.Model):
             timeout=current_conf.callback_timeout,
         )
         _logger.info("Output of MTS %s", mts_res.text)
-        current_conf.update(
-            {"start_datetime": current_conf.end_datetime, "end_datetime": dt_now}
-        )
+        current_conf.update({"start_datetime": current_conf.end_datetime, "end_datetime": dt_now})
         if current_conf.is_recurring == "onetime":
             current_conf.job_status = "completed"
 
