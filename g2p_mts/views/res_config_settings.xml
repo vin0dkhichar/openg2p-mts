@@ -21,30 +21,6 @@
                     name="g2p_mts_config_settings"
                     logo="/g2p_mts/static/description/icon.png"
                 >
-                    <!-- <block title="Delete VID Settings">
-                        <setting>
-                            <label
-                                for="g2p_mts_vid_delete_job_status"
-                                string="Keep a job running to clean up processed VIDs"
-                                class="col-6 o_light_label"
-                            />
-                            <field name="g2p_mts_vid_delete_job_status" class="text-center oe_inline" />
-                            <label
-                                for="g2p_mts_vid_delete_search_domain"
-                                string="Filters to clean up processed VIDs"
-                                class="col-6 o_light_label"
-                            />
-                            <field name="g2p_mts_vid_delete_search_domain" class="text-center oe_inline" />
-                        </setting>
-                    </block>
-                    <block title="MOSIP VID equivalent ID Type">
-                        <setting>
-                            <field name="g2p_mts_vid_id_type"/>
-                            <label for="g2p_mts_vid_id_type" string="MOSIP VID equivalent ID Type" class="col-6 o_light_label"/>
-                            <label for="g2p_mts_uin_token_id_type" string="MOSIP UIN Token equivalent ID Type" class="col-6 o_light_label"/>
-                            <field name="g2p_mts_uin_token_id_type"/>
-                        </setting>
-                    </block> -->
                     <block title="Delete VID Settings">
                         <setting help="Keep a job running to clean up processed VIDs">
                             <field name="g2p_mts_vid_delete_job_status" />
