@@ -78,7 +78,7 @@ class G2PMTSConnector(models.Model):
             _logger.info("The recordset for debug %s", json.dumps(record_list))
             mts_request["request"]["authdata"] = record_list
             mts_res = requests.post(
-                "%s/authtoken/%s" % (self.mts_url, "json"),
+                f"{self.mts_url.rstrip('/')}/authtoken/json",
                 json=mts_request,
                 timeout=self.callback_timeout,
             )
