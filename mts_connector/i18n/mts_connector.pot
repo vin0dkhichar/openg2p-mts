@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 05:56+0000\n"
-"PO-Revision-Date: 2022-10-18 05:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,12 +30,28 @@ msgstr ""
 
 #. module: mts_connector
 #: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_tree
+msgid "Action mts conf action"
+msgstr ""
+
+#. module: mts_connector
+#: model_terms:ir.ui.view,arch_db:mts_connector.view_mts_connectors_form
 msgid "Base Configuration"
 msgstr ""
 
 #. module: mts_connector
 #: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__delivery_type__callback
 msgid "Callback"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_database
+msgid "Callback Auth Database"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_password
+msgid "Callback Auth Password"
 msgstr ""
 
 #. module: mts_connector
@@ -48,6 +62,11 @@ msgstr ""
 #. module: mts_connector
 #: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_url
 msgid "Callback Auth Url"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__callback_auth_username
+msgid "Callback Auth Username"
 msgstr ""
 
 #. module: mts_connector
@@ -121,6 +140,20 @@ msgid "End Time"
 msgstr ""
 
 #. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "End Time cannot be after Start Time."
+msgstr ""
+
+#. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "End Time cannot be after the current time."
+msgstr ""
+
+#. module: mts_connector
 #: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__get
 msgid "GET"
 msgstr ""
@@ -143,11 +176,6 @@ msgstr ""
 #. module: mts_connector
 #: model:ir.model.fields,field_description:mts_connector.field_mts_connector__is_recurring
 msgid "Job Type"
-msgstr ""
-
-#. module: mts_connector
-#: model:ir.model.fields,field_description:mts_connector.field_mts_connector____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: mts_connector
@@ -201,6 +229,13 @@ msgid "Mapping"
 msgstr ""
 
 #. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Mapping is not valid json."
+msgstr ""
+
+#. module: mts_connector
 #: model:ir.model.fields,field_description:mts_connector.field_mts_connector__lang_code
 msgid "Mosip Language"
 msgstr ""
@@ -208,6 +243,11 @@ msgstr ""
 #. module: mts_connector
 #: model:ir.model,name:mts_connector.model_mts_connector
 msgid "Mosip Token Seeder Connectors"
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields,field_description:mts_connector.field_mts_connector__name
+msgid "Name"
 msgstr ""
 
 #. module: mts_connector
@@ -261,6 +301,18 @@ msgid "OpenG2P Registry"
 msgstr ""
 
 #. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Output Format is not valid jq expression."
+msgstr ""
+
+#. module: mts_connector
+#: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__patch
+msgid "PATCH"
+msgstr ""
+
+#. module: mts_connector
 #: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__callback_httpmethod__post
 msgid "POST"
 msgstr ""
@@ -301,6 +353,13 @@ msgid "Start Time"
 msgstr ""
 
 #. module: mts_connector
+#. odoo-python
+#: code:addons/mts_connector/models/mts_connector.py:0
+#, python-format
+msgid "Start Time cannot be after the current time."
+msgstr ""
+
+#. module: mts_connector
 #: model:ir.model.fields.selection,name:mts_connector.selection__mts_connector__job_status__started
 msgid "Started"
 msgstr ""
@@ -323,19 +382,4 @@ msgstr ""
 #. module: mts_connector
 #: model:ir.model.fields,help:mts_connector.field_mts_connector__cron_id
 msgid "linked to this MTS configuration"
-msgstr ""
-
-#. module: mts_connector
-#: Validation error for datetime less than
-msgid "cannot be after"
-msgstr ""
-
-#. module: mts_connector
-#: Value for current datetime
-msgid "the current time"
-msgstr ""
-
-#. module: mts_connector
-#: Invalid json Validation Error
-msgid "is not valid json."
 msgstr ""
