@@ -49,16 +49,12 @@ class G2PMTSConnector(models.Model):
                 try:
                     json.loads(rec.g2p_search_domain)
                 except ValueError as ve:
-                    raise ValidationError(
-                        _("'Filters to apply to Registry' is not valid json.")
-                    ) from ve
+                    raise ValidationError(_("'Filters to apply to Registry' is not valid json.")) from ve
             if rec.g2p_selected_fields:
                 try:
                     json.loads(rec.g2p_selected_fields)
                 except ValueError as ve:
-                    raise ValidationError(
-                        _("'List of fields to be used' is not valid json.")
-                    ) from ve
+                    raise ValidationError(_("'List of fields to be used' is not valid json.")) from ve
 
     def custom_single_action(self, mts_request):
         _logger.info("Custom Input action called.")
@@ -72,21 +68,17 @@ class G2PMTSConnector(models.Model):
 
         record_set = self.env["res.partner"].search(search_domain, limit=100)
         if len(record_set) > 0:
-            record_list = self.read_record_list_from_rec_set(
-                record_set, selected_fields
-            )
+            record_list = self.read_record_list_from_rec_set(record_set, selected_fields)
             for i, rec in enumerate(record_set):
                 for reg_id in rec.reg_ids:
                     if reg_id.id_type.id == vid_id_type:
                         record_list[i]["vid"] = reg_id.value
                         break
-            record_list = json.loads(
-                json.dumps(record_list, default=self.record_set_json_serialize)
-            )
+            record_list = json.loads(json.dumps(record_list, default=self.record_set_json_serialize))
             _logger.info("The recordset for debug %s", json.dumps(record_list))
             mts_request["request"]["authdata"] = record_list
             mts_res = requests.post(
-                "%s/authtoken/%s" % (self.mts_url, "json"),
+                f"{self.mts_url.rstrip('/')}/authtoken/json",
                 json=mts_request,
                 timeout=self.callback_timeout,
             )
