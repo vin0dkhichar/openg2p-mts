@@ -4,10 +4,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 05:56+0000\n"
-"PO-Revision-Date: 2022-10-18 05:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +14,17 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: g2p_mts
-#: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">Delete VID Settings</span>"
+#. odoo-python
+#: code:addons/g2p_mts/models/g2p_mts_connector.py:0
+#, python-format
+msgid "'Filters to apply to Registry' is not valid json."
 msgstr ""
 
 #. module: g2p_mts
-#: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
-msgid "<span class=\"o_form_label\">MOSIP VID equivalent ID Type</span>"
+#. odoo-python
+#: code:addons/g2p_mts/models/g2p_mts_connector.py:0
+#, python-format
+msgid "'List of fields to be used' is not valid json."
 msgstr ""
 
 #. module: g2p_mts
@@ -32,9 +34,12 @@ msgstr ""
 
 #. module: g2p_mts
 #: model:ir.actions.server,name:g2p_mts.to_delete_g2p_reg_id_vid_ir_actions_server
-#: model:ir.cron,cron_name:g2p_mts.to_delete_g2p_reg_id_vid
-#: model:ir.cron,name:g2p_mts.to_delete_g2p_reg_id_vid
 msgid "Delete MOSIP VID Ids"
+msgstr ""
+
+#. module: g2p_mts
+#: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
+msgid "Delete VID Settings"
 msgstr ""
 
 #. module: g2p_mts
@@ -84,12 +89,17 @@ msgstr ""
 
 #. module: g2p_mts
 #: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
-msgid "MOSIP UIN Token equivalent ID Type"
+msgid "MOSIP ID Type Settings"
 msgstr ""
 
 #. module: g2p_mts
 #: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
-msgid "MOSIP VID equivalent ID Type"
+msgid "MOSIP UIN Token Equivalent ID Type"
+msgstr ""
+
+#. module: g2p_mts
+#: model_terms:ir.ui.view,arch_db:g2p_mts.res_config_settings_view_form
+msgid "MOSIP VID Equivalent ID Type"
 msgstr ""
 
 #. module: g2p_mts
