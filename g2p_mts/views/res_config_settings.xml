@@ -17,37 +17,24 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <app
-                    class="app_settings_block"
-                    data-string="G2P MTS Settings"
-                    id="g2p_mts_config_settings"
                     string="G2P MTS Settings"
-                    data-key="g2p_mts"
+                    name="g2p_mts_config_settings"
+                    logo="/g2p_mts/static/description/icon.png"
                 >
-                    <block title="G2P MTS Settings">
-                        <setting string="Delete VID Settings">
-                            <field
-                                name="g2p_mts_vid_delete_job_status"
-                                class="text-center oe_inline"
-                                string="Keep a job running to clean up processed VIDs"
-                            />
-                            <field
-                                name="g2p_mts_vid_delete_search_domain"
-                                class="text-center oe_inline"
-                                string="Filters to clean up processed VIDs"
-                            />
+                    <block title="Delete VID Settings">
+                        <setting help="Keep a job running to clean up processed VIDs">
+                            <field name="g2p_mts_vid_delete_job_status" />
                         </setting>
-
-                        <setting string="MOSIP VID equivalent ID Type">
-                            <field
-                                name="g2p_mts_vid_id_type"
-                                class="text-center oe_inline"
-                                string="MOSIP VID equivalent ID Type"
-                            />
-                            <field
-                                name="g2p_mts_uin_token_id_type"
-                                class="text-center oe_inline"
-                                string="MOSIP UIN Token equivalent ID Type"
-                            />
+                        <setting help="Filters to clean up processed VIDs">
+                            <field name="g2p_mts_vid_delete_search_domain" />
+                        </setting>
+                    </block>
+                    <block title="MOSIP ID Type Settings">
+                        <setting help="MOSIP VID Equivalent ID Type">
+                            <field name="g2p_mts_vid_id_type" />
+                        </setting>
+                        <setting help="MOSIP UIN Token Equivalent ID Type">
+                            <field name="g2p_mts_uin_token_id_type" />
                         </setting>
                     </block>
                 </app>

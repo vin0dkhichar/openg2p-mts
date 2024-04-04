@@ -92,8 +92,8 @@
                         <field name="job_status" invisible="True" />
                     </group>
                     <group string="Recurring Job Configuration" invisible="is_recurring != 'recurring'">
-                        <field name="interval_minutes" />
-                    </group>required = "is_recurring == 'recurring'"
+                        <field name="interval_minutes" required="is_recurring == 'recurring'" />
+                    </group>
                     <group string="One Time Job Configuration" invisible="is_recurring != 'onetime'">
                         <field name="start_datetime" required="is_recurring == 'onetime'" />
                         <field name="end_datetime" required="is_recurring == 'onetime'" />
